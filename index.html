@@ -1,0 +1,1340 @@
+﻿<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>BreedJS - Be productive!</title>
+		<meta name="description" content="Write less. Avoid writing repetitive HTML structures or losing time with filters, sorts and pagination. BreedJS takes care of this things for you.">
+		<meta name="keywords" content="breedjs,breed js,sort,filter,paginate,pagination,table sorter,sort table,tablesorter,productivity,produtive,jquery plugin,plugin,variable watcher,watch variable,loop html elements,loop html">
+		<meta property="og:url" content="http://jjppof.github.io/breedjs">
+		<meta property="og:title" content="BreedJS - Write less. Be productive!">
+		<meta property="og:site_name" content="BreedJS - Be productive!">
+		<meta property="og:description" content="Write less. Avoid writing repetitive HTML structures or losing time with filters, sorts and pagination. BreedJS takes care of this things for you.">
+		<meta property="og:image" content="imgs/logo.png">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+		<script src="https://rawgit.com/jjppof/breedjs/master/min/breedjs.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/code-skin.css">
+		<link rel="stylesheet" href="css/index/style.css">
+	</head>
+	<body>
+		<div class="summary">
+			<a href="#"><h4>Contents</h4></a>
+			<ul>
+				<li>
+					<a href="#about">About</a>
+					<ul>
+						<li><a href="#download">Download</a></li>
+						<li><a href="#calling">Calling breed</a></li>
+					</ul>
+				</li>
+				<li><a href="#b-scope">b-scope</a></li>
+				<li><a href="#setDefaultScope">setDefaultScope</a></li>
+				<li><a href="#run">run</a></li>
+				<li>
+					<a href="#commands">Commands</a>
+					<ul>
+						<li>
+							<a href="#b-loop">b-loop</a>
+							<ul>
+								<li><a href="#expressions">Expressions</a></li>
+								<li><a href="#loopindex">Loop index</a></li>
+								<li><a href="#access">Access level</a></li>
+								<li><a href="#endLoop">End loop event</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#b-paginate">b-paginate</a>
+							<ul>
+								<li><a href="#paginate">paginate</a></li>
+								<li><a href="#setPageLength">setPageLength</a></li>
+								<li><a href="#getPageCount">getPageCount</a></li>
+								<li><a href="#getActualPage">getActualPage</a></li>
+								<li><a href="#pageChangeEnd">End page change event</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#sorting">Sorting</a>
+					<ul>
+						<li>
+							<a href="#sort">sort</a>
+							<ul>
+								<li><a href="#selectorSort">Using the selector option</a></li>
+								<li><a href="#ruleSort">Using the rule option</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#sortAttr">sortAttr</a>
+							<ul>
+								<li><a href="#combiningSort">Combining attr and selector options</a></li>
+							</ul>
+						</li>
+						<li><a href="#endSort">End sort event</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#filtering">Filtering</a>
+					<ul>
+						<li>
+							<a href="#filter">filter</a>
+							<ul>
+								<li><a href="#fieldFilter">Using the field option</a></li>
+								<li><a href="#ruleFilter">Using the rule option</a></li>
+								<li><a href="#stacking">Stacking filters</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#sortAttr">filterAttr</a>
+							<ul>
+								<li><a href="#combiningFilter">Combining attr and filter options</a></li>
+							</ul>
+						</li>
+						<li><a href="#filterSelector">filterSelector</a></li>
+						<li><a href="#endFilter">End filter event</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#watch">Watch</a>
+					<ul>
+						<li><a href="#watchObject">Watch an object</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#utils">Utils</a>
+					<ul>
+						<li><a href="#hasWord">hasWord</a></li>
+						<li><a href="#removeAccents">removeAccents</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="master container-fluid">
+			<div class="jumbotron">
+				<img src="imgs/logo.png" alt="breedjs logo">
+				<h3>Get a little bit more of productivity with this awesome jQuery plugin!</h3>
+				<p><a class="github-button" href="https://github.com/jjppof/breedjs" data-icon="octicon-star" data-count-href="/jjppof/breedjs/stargazers" data-count-api="/repos/jjppof/breedjs#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star jjppof/breedjs on GitHub">Star</a></p>
+				<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+			</div>
+			<section>
+				<div class="subsection">
+					<h2 id="about">About</h2>
+				</div>
+				<div class="subsection">
+					<p><b>Write less</b>. With BreedJS you won't spend your time writing <b>repetitive HTML structures</b> or developing complex functions to deal with <b>filters</b>, <b>sorts</b> and <b>pagination</b>. BreedJS takes care of this things for you with few commands. Learn how to use it checking the examples below and see which one fits to you. Visit the <a href="https://github.com/jjppof/breedjs">Github repo</a>.</p>
+					<h4 id="download">Download</h4>
+					<p><a href="https://raw.githubusercontent.com/jjppof/breedjs/master/min/breedjs.min.js" download="breedjs.min.js">Click here</a> to download the last .min version.</p> 
+					<h4 id="calling">Calling breed</h4>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							<pre class="prettyprint">&lt;script src=&quot;path/to/breed.js&quot;&gt;&lt;/script&gt;</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="subsection">
+					<h2 id="b-scope">[HTML] attr:b-scope="scopeName"</h2>
+					<p>Set the scope that you're going to work with.</p>
+				</div>
+				<div class="subsection">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div class="subsection">
+					<h2 id="setDefaultScope">[JS] setDefaultScope(scopeName)</h2>
+					<p>Set the default scope when calling <mark>breed</mark>. Then you don't need to tell which scope you are using everytime you call <mark>breed</mark>.</p>
+				</div>
+				<div class="subsection">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+							<pre class="prettyprint">breed.setDefaultScope('animals')</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div class="subsection">
+					<h2 id="run">[JS] breed.run(object)</h2>
+					<p>Activate a scope. The commands you passed in the tag where you set the scope only will be activated after you call this function.</p>
+				</div>
+				<div class="subsection">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    animals_list: [&quot;mouse&quot;, &quot;cat&quot;, &quot;dog&quot;]
+};
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>input</b>: Here you pass the data object that you're going to use in your scope.</li>
+						<li><b>runEnd</b> <i>[optional]</i>: Here you set the after <mark>run()</mark> callback function.</li>
+						<li><b>pageChangeEnd</b> <i>[optional]</i>: Here you set the after <mark>paginate()</mark> callback function.</li>
+						<li><b>sortEnd</b> <i>[optional]</i>: Here you set the after <mark>sort()</mark> and <mark>sortAttr()</mark> callback function.</li>
+						<li><b>filterEnd</b> <i>[optional]</i>: Here you set the after <mark>filter()</mark>, <mark>filterAttr()</mark> and <mark>filterSelector()</mark> callback function.</li>
+					</ul>
+				</div>
+			</section>
+			
+			<section>
+				<div class="subsection">
+					<h2 id="commands">[HTML] Commands</h2>
+					<p>Set commands to be executed when activate the scope.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="b-loop">attr:b-loop="value in values"</h3>
+					<p>Loops the tag where the command is through a scope iterable variable. This command will also create the inner tags.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    animals_list: [&quot;mouse&quot;, &quot;cat&quot;, &quot;dog&quot;]
+};
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							Before run:
+							<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;&lt;/div&gt;</pre>
+							Result:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<h4 id="expressions"><i class="fa fa-paragraph"></i> Expressions</h4>
+					<p>Its also possible to set javascript expressions between double brackets: <mark>{{your_expression}}</mark>. In this way, you can get more advantge over your loop command:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							Before run:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    {{&quot;This is a &quot; + animal}}
+&lt;/div&gt;</pre>
+							Result:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;This is a mouse&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;This is a cat&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;This is a dog&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p>Expressions can also be used inside attributes.</p>
+					<h4 id="loopindex"><i class="fa fa-paragraph"></i> Loop index</h4>
+					<p>You can access the loop index using the variable <mark>#index</mark> inside an expression.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							Before run:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; id=&quot;{{#index}}&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    {{&quot;This is a &quot; + animal}}
+&lt;/div&gt;</pre>
+							Result:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; id=&quot;0&quot;&gt;This is a mouse&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot; id=&quot;1&quot;&gt;This is a cat&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot; id=&quot;2&quot;&gt;This is a dog&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<h4 id="access"><i class="fa fa-paragraph"></i> Access level</h4>
+					<p>In order to access global variables inside expressions, you just need no call it, but to access variables from scope data, you need to use <mark>#</mark> before the variable name.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var hey = &quot;Hey! &quot;;
+var data = {
+    animals_list: [&quot;mouse&quot;, &quot;cat&quot;, &quot;dog&quot;],
+    text: &quot;This is a &quot;
+};
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							Before run:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    &lt;b&gt;{{hey}}&lt;/b&gt; {{#text + animal}}
+&lt;/div&gt;</pre>
+							Result:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;&lt;b&gt;Hey!&lt;/b&gt; This is a mouse&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;&lt;b&gt;Hey!&lt;/b&gt; This is a cat&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;&lt;b&gt;Hey!&lt;/b&gt; This is a dog&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<h4 id="endLoop"><i class="fa fa-paragraph"></i> End loop event</h4>
+					<p>Just pass your function to <mark>loopEnd</mark> key inside the run object to be called when the loop is over:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.run({
+    scope: &#39;animals&#39;,
+    input: data,
+    loopEnd: function(){
+        //here goes your code
+    }
+});</pre>
+						</div>
+					</div>
+					<h3 id="b-paginate">attr:b-paginate="page_length"</h3>
+					<p>This command will paginate the DOM elements at your scope that you created with <mark>b-loop</mark>. Paginating works with filters and sorts.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    animals_list: [&quot;bee&quot;, &quot;mouse&quot;, &quot;cat&quot;, &quot;dog&quot;, &quot;wolf&quot;, &quot;lion&quot;]
+};
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+							Before run:
+							<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot; b-paginate=&quot;3&quot;&gt;{{animal}}&lt;/div&gt;</pre>
+							Result:
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot;&gt;bee&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;mouse&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;cat&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;dog&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;wolf&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;lion&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<h4 id="paginate"><i class="fa fa-paragraph"></i> [JS] breed.paginate(object)</h4>
+					<p>That's the function that really makes the pagination happen. Whenever you want to change pages, that's the one to be called.</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>page</b>: Here you pass the number of the page that you want to go. You also can pass <mark>"next"</mark> or <mark>"previous"</mark> to go to the next or the previous page, respectivaly.</li>
+						<li><b>page_length</b> <i>[optional]</i>: If you want to change how many items you show per page, you can change this value here.</li>
+					</ul>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.paginate({
+    scope: &#39;animals&#39;,
+    page: 2
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;bee&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;mouse&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;cat&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;dog&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;wolf&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;lion&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<h4 id="setPageLength"><i class="fa fa-paragraph"></i> [JS] breed.setPageLength(object)</h4>
+					<p>This function changes how many items is shown per page.</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>page_length</b>: Set the new value here.</li>
+					</ul>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.setPageLength({
+    scope: &#39;animals&#39;,
+    page_length: 6
+});</pre>
+						</div>
+					</div>
+					<p>In our example, that's going to result at showing all elements.</p>
+					<h4 id="getPageCount"><i class="fa fa-paragraph"></i> [JS] breed.getPageCount(scope)</h4>
+					<p>This function returns how many pages there are in your scope.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.getPageCount(&#39;animals&#39;);</pre>
+						</div>
+					</div>
+					<p>If in our example the <mark>page_length</mark> value is 3, then this function will return 2.</p>
+					<h4 id="getActualPage"><i class="fa fa-paragraph"></i> [JS] breed.getActualPage(scope)</h4>
+					<p>This function returns the actual page.</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.getActualPage(&#39;animals&#39;);</pre>
+						</div>
+					</div>
+					<p>The first page index is 1. So if you are at page 2, for example, you'll get 2 from this function.</p>
+					<h4 id="pageChangeEnd"><i class="fa fa-paragraph"></i> End page change event</h4>
+					<p>Just pass your function to <mark>pageChangeEnd</mark> key inside the run object to be called when the page change process is over:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.run({
+    scope: &#39;animals&#39;,
+    input: data,
+    pageChangeEnd: function(){
+        //here goes your code
+    }
+});</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div class="subsection">
+					<h2 id="sorting">Sorting</h2>
+					<p>Sorting can be very easy, simple and flexible with BreedJS. With few key configurations, you will be able to sort everything you want. Sort works with filters and pagination.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="sort">[JS] breed.sort(obj)</h3>
+					<p>Consider this example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    animals_list: [
+        {name: &#39;dog&#39;, age: 4},
+        {name: &#39;cat&#39;, age: 7},
+        {name: &#39;fish&#39;, age: 1}
+    ]
+};
+
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;{{animal.name}}&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p>This will generate divs with animals' name.</p>
+					<p>Everytime we want to sort these divs, we can do just like so:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.sort({
+    scope: &#39;animals&#39;
+});</pre>
+						</div>
+					</div>
+					<p>The result is going to be:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;div b-scope=&#39;animals&#39;&gt;cat&lt;/div&gt;
+&lt;div b-scope=&#39;animals&#39;&gt;dog&lt;/div&gt;
+&lt;div b-scope=&#39;animals&#39;&gt;fish&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p>We sorted this scope by the divs text.</p>
+					<p>This sort function can be more flexible. Let us take a look at sort options:</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>reverse</b> <i>[optional]</i>: Set this to <mark>true</mark> to sort in reverse order.</li>
+						<li><b>selector</b> <i>[optional]</i>: If you want to sort by a text of a inner tag, pass here the value of the attribute <mark>b-sort</mark>, so we can find this tag to get its text.</li>
+						<li><b>rule</b> <i>[optional]</i>: Pass here a function that will modify the text to be analyzed.</li>
+					</ul>
+					<h4 id="selectorSort"><i class="fa fa-paragraph"></i> Using the selector option</h4>
+					<p>Let's take a look at <mark>selector</mark> option. Consider this example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;{{animal.name}}&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;{{animal.age}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>This will generate table rows with animals name and age info. We put the <mark>b-sort</mark> attribute in order to sort the row by name or by age.</p>
+					<p>Now, if we want to sort it by name, we do this:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.sort({
+    scope: &#39;animals&#39;,
+    selector: &#39;name&#39; //the value inside the attribute b-sort
+});</pre>
+						</div>
+					</div>
+					<p>And that's the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;cat&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;dog&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;fish&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<h4 id="ruleSort"><i class="fa fa-paragraph"></i> Using the rule option</h4>
+					<p>You can edit the analyzed text using the <mark>rule</mark> option:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filter({
+    scope: &#39;animals&#39;,
+    selector: &#39;age&#39;,
+    rule: function(age){
+        return age == 1 ? age : -1 * (age % 2);
+    }
+});</pre>
+						</div>
+					</div>
+					<p>That's going to apply the rule for each age value and sort based on it. See the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;cat&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;7&lt;/td&gt; &lt;!-- The rule result is -1 --&gt; 
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;dog&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;4&lt;/td&gt; &lt;!-- The rule result is 0 --&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-sort=&quot;name&quot;&gt;fish&lt;/td&gt;
+    &lt;td b-sort=&quot;age&quot;&gt;1&lt;/td&gt; &lt;!-- The rule result is 1 --&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+				</div>
+				<div class="subsection">
+					<h3 id="sortAttr">[JS] breed.sortAttr(obj)</h3>
+					<p>You can have all the <mark>breed.sort()</mark> features at <mark>breed.sortAttr()</mark> function, but in sortAttr you don't sort by the tag inner text value, you sort by a given attribute.</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>attr</b>: The attribute name that you want to sort by.</li>
+						<li><b>reverse</b> <i>[optional]</i>: Set this to <mark>true</mark> to sort in reverse order.</li>
+						<li><b>selector</b> <i>[optional]</i>: If you want to sort by a attribute value of a inner tag, pass here the value of the attribute <mark>b-sort</mark>, so we can find the tag where your attribute is.</li>
+						<li><b>rule</b> <i>[optional]</i>: Pass here a function that will modify the text to be analyzed.</li>
+					</ul>
+					<p>Consider this example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    &lt;td age=&quot;{{animal.age}}&quot;&gt;{{animal.name}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Now, we want to sort this by the attribute <mark>age</mark>. This can be easily done with this command:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.sortAttr({
+    scope: &#39;animals&#39;,
+    attr: &#39;age&#39;
+});</pre>
+						</div>
+					</div>
+					<p>And we got this result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;1&quot;&gt;fish&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;4&quot;&gt;dog&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;7&quot;&gt;cat&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<h4 id="combiningSort"><i class="fa fa-paragraph"></i> Combining attr and selector options</h4>
+					<p>Now consider this other example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr age=&quot;{{animal.age}}&quot; b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    &lt;td age=&quot;{{animal.age == 1 ? animal.age : -1 * (animal.age % 2)}}&quot; b-sort=&quot;name&quot;&gt;{{animal.name}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>We want to sort by the age attribute inside <mark>td</mark> tag. But using just the <mark>attr</mark> option, It will sort by the <mark>tr</mark> tag. To solve this, we back with <mark>b-sort</mark> attribute to help BreedJS find what attribute you're talking about. See:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.sort({
+    scope: &#39;animals&#39;,
+    attr: &#39;age&#39;,
+    selector: &#39;name&#39; 
+});</pre>
+						</div>
+					</div>
+					<p>Result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr age=&quot;7&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;-1&quot; b-sort=&quot;name&quot;&gt;cat&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;4&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;0&quot; b-sort=&quot;name&quot;&gt;dog&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;1&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td age=&quot;1&quot; b-sort=&quot;name&quot;&gt;fish&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+				</div>
+				<div class="subsection">
+					<h3 id="endSort">End sort event</h3>
+					<p>We provide a callback option for anykind of sort you do:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.run({
+    scope: &#39;animals&#39;,
+    input: data,
+    sortEnd: function(){
+        //here goes your code
+    }
+});</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<div class="subsection">
+					<h2 id="filtering">Filtering</h2>
+					<p>Filter things usually can be very hard. But with BreedJS, It gets very simple and really flexible to your needs. Filter works with pagination and sorting.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="filter">[JS] breed.filter(object)</h3>
+					<p>Consider this data for our examples:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    animals_list: [
+        {name: &#39;dog&#39;, age: 6},
+        {name: &#39;cat&#39;, age: 3},
+        {name: &#39;fish&#39;, age: 1},
+        {name: &#39;camel&#39;, age: 9},
+        {name: &#39;flamingo&#39;, age: 2}
+    ]
+};
+
+breed.run({
+    scope: &#39;animals&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;div b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;{{animal.name}}&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p>This will generate divs with animals' name.</p>
+					<p>Everytime we want to filter these divs, we can do just like so:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filter({
+    scope: &#39;animals&#39;,
+    key: &#39;ca&#39;
+});</pre>
+						</div>
+					</div>
+					<p>And that's gonna be the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;dog&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;cat&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;fish&lt;/div&gt;
+&lt;div b-scope=&quot;animals&quot;&gt;camel&lt;/div&gt;
+&lt;div style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;flamingo&lt;/div&gt;</pre>
+						</div>
+					</div>
+					<p>We filtered this scope by the divs text.</p>
+					<p>This filter function can be more flexible. Let us take a look at filter options:</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>key</b>: That's your filter key.</li>
+						<li><b>exclusion</b> <i>[optional]</i>: Set this to <mark>true</mark> to filter by exclusion.</li>
+						<li><b>field</b> <i>[optional]</i>: If you want to filter by a text of a inner tag, pass here the value of the attribute <mark>b-filter</mark>, so we can find this tag to get its text.</li>
+						<li><b>rule</b> <i>[optional]</i>: Pass here a function that will set a rule to filter your elements.</li>
+						<li><b>sensitive</b> <i>[optional]</i>: Set this to <mark>true</mark> to make the filter case sensitive.</li>
+					</ul>
+					<h4 id="fieldFilter"><i class="fa fa-paragraph"></i> Using the field option</h4>
+					<p>Let's take a look at <mark>field</mark> option. Consider this example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot; b-loop=&quot;animal in animals_list&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;{{animal.name}}&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;{{animal.age}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>This will generate table rows with animals name and age info. We put the <mark>b-filter</mark> attribute in order to filter the row by name or by age.</p>
+					<p>Now, if we want to filter it by name, we do this:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filter({
+    scope: &#39;animals&#39;,
+    field: &#39;name&#39;, //the value inside the attribute b-filter
+    key: 'dog'
+});</pre>
+						</div>
+					</div>
+					<p>And that's the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;dog&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;cat&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;fish&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;camel&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;flamingo&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;2&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<h4 id="ruleFilter"><i class="fa fa-paragraph"></i> Using the rule option</h4>
+					<p>You can edit the filter pattern using the <mark>rule</mark> option:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.sort({
+    scope: &#39;animals&#39;,
+    field: &#39;age&#39;,
+    rule: function(age){
+        return age < 4;
+    }
+});</pre>
+						</div>
+					</div>
+					<p>That's going to apply the rule for the filter checking. See the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;dog&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;cat&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;fish&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;camel&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;animals&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;flamingo&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;2&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Only ages less than 4 got displayed.</p>
+					<h4 id="stacking"><i class="fa fa-paragraph"></i> Stacking filters</h4>
+					<p>With BreedJS, you can stack filters (filter of the filter) in a very neat way.</p>
+					<p>Consider this new situation:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var data = {
+    people: [
+        {name: &#39;john&#39;, age: 18, birth: &#39;23/06/1998&#39;},
+        {name: &#39;josh&#39;, age: 13, birth: &#39;12/04/2003&#39;},
+        {name: &#39;jake&#39;, age: 20, birth: &#39;11/09/1996&#39;},
+        {name: &#39;jason&#39;, age: 19, birth: &#39;13/08/1997&#39;},
+        {name: &#39;james&#39;, age: 17, birth: &#39;24/05/1999&#39;}
+    ]
+};
+
+breed.run({
+    scope: &#39;people&#39;,
+    input: data
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot; b-loop=&quot;person in people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;{{person.name}}&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;{{person.age}}&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;{{person.birth}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Now, we want to filter it by name and birthdate. So we do:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">function compare(date){
+    return Date.parse(date) &lt; Date.parse(&#39;01/01/2000&#39;);
+}
+
+breed.filter({
+    scope: &#39;people&#39;,
+    field: [&#39;name&#39;, &#39;birth&#39;],
+    rule: [&#39;jo&#39;, compare]
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<i class="fa fa-exclamation-triangle"></i> When stacking, <mark>field</mark> and <mark>rule</mark> options must match. <mark>'jo'</mark> is for <mark>'name'</mark> and <mark>compare()</mark> is for <mark>'birth'</mark>.
+						</div>
+					</div>
+					<p>Here is the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;john&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;18&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;23/06/1998&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;josh&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;13&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;12/04/2003&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;jake&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;20&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;11/09/1996&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;jason&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;19&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;13/08/1997&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td b-filter=&quot;name&quot;&gt;james&lt;/td&gt;
+    &lt;td b-filter=&quot;age&quot;&gt;17&lt;/td&gt;
+    &lt;td b-filter=&quot;birth&quot;&gt;24/05/1999&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Data that contains <mark>'jo'</mark> and has birthdate before 01/01/2000 got displayed.</p>
+					<p>If you don't have any rule function, you can set the key array on <mark>key</mark> option as well.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="filterAttr">[JS] breed.filterAttr(object)</h3>
+					<p>You can have all the <mark>breed.filter()</mark> features at <mark>breed.filterAttr()</mark> function, but in filterAttr you don't filter by the tag inner text value, you filter by a given attribute.</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>key</b>: That's your filter key.</li>
+						<li><b>attr</b>: The attribute name that you want to filter by.</li>
+						<li><b>exclusion</b> <i>[optional]</i>: Set this to <mark>true</mark> to filter by exclusion.</li>
+						<li><b>field</b> <i>[optional]</i>: If you want to filter by an attribute value of a inner tag, pass here the value of the attribute <mark>b-filter</mark>, so we can find the tag where your attribute is.</li>
+						<li><b>rule</b> <i>[optional]</i>: Pass here a function that will set a rule to filter your elements.</li>
+						<li><b>sensitive</b> <i>[optional]</i>: Set this to <mark>true</mark> to make the filter case sensitive.</li>
+					</ul>
+					<p>Still with the <mark>people</mark> data example, let's do just like so:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot; b-loop=&quot;person in people&quot;&gt;
+    &lt;td age=&quot;{{person.age}}&quot;&gt;{{person.name}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Now, we want to filter this by the attribute <mark>age</mark>. This can be easily done with this command:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filterAttr({
+    scope: &#39;people&#39;,
+    attr: &#39;age&#39;,
+    rule: function(age){
+        return age &lt; 19;
+    }
+});</pre>
+						</div>
+					</div>
+					<p>And that's the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;18&quot;&gt;john&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;13&quot;&gt;josh&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;20&quot;&gt;jake&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;19&quot;&gt;jason&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;17&quot;&gt;james&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<h4 id="combiningFilter"><i class="fa fa-paragraph"></i> Combining attr and field options</h4>
+					<p>Now consider this other example:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr age=&quot;{{person.age}}&quot; b-scope=&quot;people&quot; b-loop=&quot;person in people&quot;&gt;
+    &lt;td age=&quot;{{person.age - 1}}&quot; b-filter=&quot;name&quot;&gt;{{person.name}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>We want to filter by the age attribute inside <mark>td</mark> tag. But using just the <mark>attr</mark> option, It will filter by the <mark>tr</mark> tag. To solve this, we back with <mark>b-filter</mark> attribute to help BreedJS find what attribute you're talking about. See:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filterAttr({
+    scope: &#39;people&#39;,
+    attr: &#39;age&#39;,
+    field: &#39;name&#39;,
+    rule: function(age){
+        return age &lt; 19;
+    }
+});</pre>
+						</div>
+					</div>
+					<p>And that's the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr age=&quot;18&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;17&quot;&gt;john&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;13&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;12&quot;&gt;josh&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;20&quot; style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;19&quot;&gt;jake&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;19&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;18&quot;&gt;jason&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr age=&quot;17&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td age=&quot;16&quot;&gt;james&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+				</div>
+				<div class="subsection">
+					<h3 id="filterSelector">[JS] breed.filterSelector(object)</h3>
+					<p>Here we give you freedom to select the information that you want to filter. In this function you pass a jQuery selector to find the element(s) you want to. This function will check the element inner text to filter. This function has the same features of filter.</p>
+					<p><b>Object keys</b></p>
+					<ul>
+						<li><b>scope</b>: Your scope. It's optional if you set a default.</li>
+						<li><b>key</b>: That's your filter key.</li>
+						<li><b>selector</b>: The jQuery selector to find elements that you want to filter.</li>
+						<li><b>exclusion</b> <i>[optional]</i>: Set this to <mark>true</mark> to filter by exclusion.</li>
+						<li><b>rule</b> <i>[optional]</i>: Pass here a function that will set a rule to filter your elements.</li>
+						<li><b>sensitive</b> <i>[optional]</i>: Set this to <mark>true</mark> to make the filter case sensitive.</li>
+					</ul>
+					<p>Using the <mark>people</mark> data example, check this out:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot; b-loop=&quot;person in people&quot;&gt;
+    &lt;td&gt;{{person.name}}&lt;/td&gt;
+    &lt;td&gt;{{person.age}}&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>In this example, we want to build a very generic filter. We want to give a filter key that will validade even for name and age at the same time. To do so, we do this:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.filterSelector({
+    scope: &#39;people&#39;,
+    selector: &#39;td&#39;,
+    key: [&#39;18&#39;, &#39;jake&#39;] //note that I&#39;m stacking filters here
+});</pre>
+						</div>
+					</div>
+					<p>Using <mark>td</mark> as a selector, I'm joining name and age, because They are the inner text of <mark>td</mark> tag. Here is the result:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td&gt;john&lt;/td&gt;
+    &lt;td&gt;18&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td&gt;josh&lt;/td&gt;
+    &lt;td&gt;13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr b-scope=&quot;people&quot;&gt;
+    &lt;td&gt;jake&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td&gt;jason&lt;/td&gt;
+    &lt;td&gt;19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&quot;display:none;&quot; b-scope=&quot;people&quot;&gt;
+    &lt;td&gt;james&lt;/td&gt;
+    &lt;td&gt;17&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+				</div>
+				<div class="subsection">
+					<h3 id="endFilter">End filter event</h3>
+					<p>We provide a callback option for anykind of filter you do:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.run({
+    scope: &#39;people&#39;,
+    input: data,
+    filterEnd: function(){
+        //here goes your code
+    }
+});</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="subsection">
+					<h2 id="watch">[JS] breed.watch(variable_name, [object])</h2>
+				</div>
+				<div class="subsection">
+					<p>We give you a little way to watch a variable that you want and print it at your page. See:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var my_value = null;
+breed.watch(&#39;my_value&#39;);
+$(&quot;#txt&quot;).keyup(function() {
+    my_value = $(this).val();
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;input id=&quot;txt&quot; type=&quot;text&quot;&gt;&lt;b-var var=&quot;my_value&quot;&gt;&lt;/b-var&gt;</pre>
+						</div>
+					</div>
+					<p>The result:</p>
+					<script>
+						$(function(){
+							my_value = null;
+							breed.watch('my_value');
+							$("#txt").keyup(function() {
+								my_value = $(this).val();
+							});
+						});
+					</script>
+					<p><input type="text" id="txt" maxlength="20" placeholder="Type..."><span><b-var var="my_value"></b-var></p>
+					<p>Note that you have to use the <mark>b-var</mark> tag with an attribute <mark>var</mark> whose value is the variable name.</p>
+				</div>
+				<div class="subsection">
+					<h4 id="watchObject">Watch an object</h4>
+					<p>You can watch a custom object by passing it in the function:</p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">var person = {name: &#39;John&#39;, age: 20};
+breed.watch(&#39;name&#39;, person);
+breed.watch(&#39;age&#39;, person);
+$(&quot;#name&quot;).keyup(function() {
+    person.name = $(this).val();
+});
+$(&quot;#age&quot;).keyup(function() {
+    person.age = $(this).val();
+});</pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> HTML</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">&lt;tr&gt;
+    &lt;td&gt;&lt;b-var var=&quot;name&quot;&gt;&lt;/b-var&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b-var var=&quot;age&quot;&gt;&lt;/b-var&gt;&lt;/td&gt;
+&lt;/tr&gt;</pre>
+						</div>
+					</div>
+					<p>Then you get:</p>
+					<script>
+						$(function(){
+							var person = {name: 'John', age: 20};
+							breed.watch('name', person);
+							breed.watch('age', person);
+							$("#name").keyup(function() {
+								person.name = $(this).val();
+							});
+							$("#age").keyup(function() {
+								person.age = $(this).val();
+							});
+						});
+					</script>
+					<table class="table table-condensed small" style="max-width: 200px;">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Age</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><b-var var="name">John</b-var></td>
+								<td><b-var var="age">20</b-var></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="form-group" style="max-width: 200px;">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" id="name" placeholder="Name..." maxlength="10">
+					</div>
+					<div class="form-group" style="max-width: 200px;">
+						<label for="name">Age</label>
+						<input type="text" class="form-control" id="age" placeholder="Age..." maxlength="3">
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="subsection">
+					<h2 id="utils">Utils</h2>
+					<p>Some functions that can be useful.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="hasWord">[JS] breed.utils.hasWord(key, string, [sensitive])</h3>
+					<p>This function checks if a string has an entire word:<p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.utils.hasWord(&#39;foo&#39;, &#39;foo boo bar&#39;); // returns true
+breed.utils.hasWord(&#39;fo&#39;, &#39;foo boo bar&#39;); // returns false</pre>
+						</div>
+					</div>
+					<p>Pass <mark>true</mark> to the third arg to case sensitive.</p>
+				</div>
+				<div class="subsection">
+					<h3 id="removeAccents">[JS] breed.utils.removeAccents(string)</h3>
+					<p>This function removes accents of a string:<p>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-code"></i> Javascript</h3>
+						</div>
+						<div class="panel-body">
+<pre class="prettyprint">breed.utils.removeAccents(&#39;ãñáéíóô&#39;); // returns 'anaeioo'</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>
