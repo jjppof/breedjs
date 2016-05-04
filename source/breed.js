@@ -282,7 +282,9 @@ var breed = {
 				}
 			} else{
 				if(selector){
-					return breedSorterTypeChecker(a.querySelector("[b-sort='" + selector + "']").getAttribute(attr), b.querySelector("[b-sort='" + selector + "']").getAttribute(attr));
+					nodes.sort(function(a, b){
+						return breedSorterTypeChecker(a.querySelector("[b-sort='" + selector + "']").getAttribute(attr), b.querySelector("[b-sort='" + selector + "']").getAttribute(attr));
+					});
 				} else{
 					nodes.sort(function(a, b){
 						return breedSorterTypeChecker(a.getAttribute(attr), b.getAttribute(attr));
