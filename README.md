@@ -1,4 +1,4 @@
 # breedjs
-Give a little bit more productivity to your code. Use BreedJS!
+Sort, filter and paginate fast. Use BreedJS.
 
-For full information, visit: http://jjppof.github.io/breedjs/
+Full information: http://jjppof.github.io/breedjs/
