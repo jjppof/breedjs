@@ -1,4 +1,4 @@
 # breedjs
-Sort, filter and paginate fast. Use BreedJS.
+Sort, filter and paginate HTML tags.
 
 Full information: http://jjppof.github.io/breedjs/
